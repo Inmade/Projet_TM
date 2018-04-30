@@ -3,17 +3,24 @@ margin-bottom:5rem;text-transform:uppercase;line-height:1;font-family:Raleway}
 .site-heading .site-heading-upper{display:block;font-size:2rem;font-weight:800}
 .site-heading .site-heading-lower{font-size:5rem;font-weight:100;line-height:4rem}
 .page-section{margin-top:5rem;margin-bottom:5rem}
-.bg-faded{background-color:rgba(255,255,255,.85)}
-#mainNav{background-color:rgba(47,23,15,.9);font-family:Raleway}#mainNav 
-.navbar-brand{color:#e6a756}#mainNav 
-.navbar-nav .nav-item .nav-link{color:rgba(255,255,255,.7);font-weight:800}#mainNav 
-.navbar-nav .nav-item.active 
-.nav-link{color:#e6a756}@media (min-width:992px){#mainNav 
-.navbar-nav .nav-item 
-.nav-link{font-size:.9rem}#mainNav 
-.nav-link:hover{color:rgba(255,255,255,.4)}#mainNav 
+#mainNav{background-color:rgba(47,23,15,.9);font-family:Raleway}#mainNav
+.navbar-brand{color:#e6a756}#mainNav
+.navbar-nav .nav-item .nav-link{color:rgba(255,255,255,.7);font-weight:800}#mainNav
+.navbar-nav .nav-item.active
+.nav-link{color:#e6a756}@media (min-width:992px){#mainNav
+.navbar-nav .nav-item
+.nav-link{font-size:.9rem}#mainNav
+.nav-link:hover{color:rgba(255,255,255,.4)}#mainNav
 .product-item .product-item-description{position:relative;z-index:1;margin-top:-3rem;max-width:50vw}}
 .footer{background-color:rgba(47,23,15,.9)}
 .text-primary{color:#e6a756!important}
-	
+.bg-faded{background-color:rgba(255,255,255,.85)}
+@font-face {
+    font-family:"Pecita";
+    src: url("Pecita.otf");
+}
 
+.title
+{
+	font-family: "Pecita";
+}
