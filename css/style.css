@@ -8,7 +8,6 @@ margin-bottom:5rem;text-transform:uppercase;line-height:1;font-family:Raleway}
 .navbar-nav .nav-item .nav-link{color:rgba(255,255,255,.7);font-weight:800}#mainNav
 .navbar-nav .nav-item.active
 .nav-link{color:#e6a756}@media (min-width:992px){#mainNav
-.navbar-nav .nav-item
 .nav-link{font-size:.9rem}#mainNav
 .nav-link:hover{color:rgba(255,255,255,.4)}#mainNav
 .product-item .product-item-description{position:relative;z-index:1;margin-top:-3rem;max-width:50vw}}
@@ -18,19 +17,71 @@ margin-bottom:5rem;text-transform:uppercase;line-height:1;font-family:Raleway}
 @font-face {
     font-family:"Pecita";
     src: url('Pecita.otf');
+
+    font-family:"Capture_it";
+    src: url('Capture_it.ttf');
 }
 
-.site-heading .site-heading-upper
+.site-heading-upper
 {
 	font-family: "Pecita";
 }
-@font-face {
-    font-family:"Capture it";
-    src: url('Capture it.ttf');
-}
-
-.site-heading .site-heading-lower
+.site-heading
 {
-	font-family: "Capture it";
+    font-family: "Capture_it";
 }
 
+li.dropdown {
+    display: inline-block;
+
+
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    color:#e6a756;
+}
+
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    text-align: left;
+    color:#e6a756;
+}
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+li.dropdown {
+    display: inline-block;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    text-align: left;
+}
+
+.dropdown-content a:hover {
+  color:#e6a756;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
