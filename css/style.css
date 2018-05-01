@@ -17,7 +17,7 @@ margin-bottom:5rem;text-transform:uppercase;line-height:1;font-family:Raleway}
 .bg-faded{background-color:rgba(255,255,255,.85)}
 @font-face {
     font-family:"Pecita";
-    src: url("Pecita.otf");
+    src: url('Pecita.otf');
 }
 
 .title
