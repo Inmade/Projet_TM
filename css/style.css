@@ -20,7 +20,17 @@ margin-bottom:5rem;text-transform:uppercase;line-height:1;font-family:Raleway}
     src: url('Pecita.otf');
 }
 
-.title
+.site-heading .site-heading-upper
 {
 	font-family: "Pecita";
 }
+@font-face {
+    font-family:"Capture it";
+    src: url('Capture it.ttf');
+}
+
+.site-heading .site-heading-lower
+{
+	font-family: "Capture it";
+}
+
