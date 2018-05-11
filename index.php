@@ -1,43 +1,45 @@
 <?php
+$bdd = new PDO('mysql:host=127.0.0.1;dbname=espace_membre', 'root', '');
 
-error_reporting(E_PARSE | E_ERROR);
-
-// on teste si le visiteur a soumis le formulaire de connexion
-if (isset($_POST['connexion']) && $_POST['connexion'] == 'Connexion') {
-	if ((isset($_POST['login']) && !empty($_POST['login'])) && (isset($_POST['pass']) && !empty($_POST['pass']))) {
-
-	$base = mysqli_connect ('serveur', 'login', 'password');
-	mysqli_select_db ('nom_base', $base);
-
-	// on teste si une entrée de la base contient ce couple login / pass
-	$sql = 'SELECT count(*) FROM membre WHERE login="'.mysqli_escape_string($_POST['login']).'" AND pass_md5="'.mysqli_escape_string(md5($_POST['pass'])).'"';
-	$req = mysqli_query($sql) or die('Erreur SQL !<br />'.$sql.'<br />'.mysqli_error());
-	$data = mysqli_fetch_array($req);
-
-	mysqli_free_result($req);
-	mysqli_close();
-
-	// si on obtient une réponse, alors l'utilisateur est un membre
-	if ($data[0] == 1) {
-		session_start();
-		$_SESSION['login'] = $_POST['login'];
-		header('Location: membre.php');
-		exit();
-	}
-	// si on ne trouve aucune réponse, le visiteur s'est trompé soit dans son login, soit dans son mot de passe
-	elseif ($data[0] == 0) {
-		$erreur = 'Compte non reconnu.';
-	}
-	// sinon, alors la, il y a un gros problème :)
-	else {
-		$erreur = 'Probème dans la base de données : plusieurs membres ont les mêmes identifiants de connexion.';
-	}
-	}
-	else {
-	$erreur = 'Au moins un des champs est vide.';
-	}
+if(isset($_POST['forminscription'])) {
+   $pseudo = htmlspecialchars($_POST['pseudo']);
+   $mail = htmlspecialchars($_POST['mail']);
+   $mail2 = htmlspecialchars($_POST['mail2']);
+   $mdp = sha1($_POST['mdp']);
+   $mdp2 = sha1($_POST['mdp2']);
+   if(!empty($_POST['pseudo']) AND !empty($_POST['mail']) AND !empty($_POST['mail2']) AND !empty($_POST['mdp']) AND !empty($_POST['mdp2'])) {
+      $pseudolength = strlen($pseudo);
+      if($pseudolength <= 255) {
+         if($mail == $mail2) {
+            if(filter_var($mail, FILTER_VALIDATE_EMAIL)) {
+               $reqmail = $bdd->prepare("SELECT * FROM membres WHERE mail = ?");
+               $reqmail->execute(array($mail));
+               $mailexist = $reqmail->rowCount();
+               if($mailexist == 0) {
+                  if($mdp == $mdp2) {
+                     $insertmbr = $bdd->prepare("INSERT INTO membres(pseudo, mail, motdepasse) VALUES(?, ?, ?)");
+                     $insertmbr->execute(array($pseudo, $mail, $mdp));
+                    /* $_SESSION['comptecree'] */ $erreur= "Votre compte a bien été créé ! <a href=\"connexion.php\">Me connecter</a>";
+                    /* header('Location: index.php');*/
+                  } else {
+                     $erreur = "Vos mots de passes ne correspondent pas !";
+                  }
+               } else {
+                  $erreur = "Adresse mail déjà utilisée !";
+               }
+            } else {
+               $erreur = "Votre adresse mail n'est pas valide !";
+            }
+         } else {
+            $erreur = "Vos adresses mail ne correspondent pas !";
+         }
+      } else {
+         $erreur = "Votre pseudo ne doit pas dépasser 255 caractères !";
+      }
+   } else {
+      $erreur = "Tous les champs doivent être complétés !";
+   }
 }
-
 ?>
 
 <!DOCTYPE html>
@@ -105,17 +107,66 @@ if (isset($_POST['connexion']) && $_POST['connexion'] == 'Connexion') {
       <div class="container">
         <div class="intro">
           <div class=" text-center bg-faded p-5 rounded">
-           
-              Connexion à l'espace membre :<br />
-<form action="index.php" method="post">
-Login : <input type="text" name="login" value="<?php if (isset($_POST['login'])) echo htmlentities(trim($_POST['login'])); ?>"><br />
-Mot de passe : <input type="password" name="pass" value="<?php if (isset($_POST['pass'])) echo htmlentities(trim($_POST['pass'])); ?>"><br />
-<input type="submit" name="connexion" value="Connexion">
-</form>
-<a href="inscription.php">Vous inscrire</a>
-<?php
-if (isset($erreur)) echo '<br /><br />',$erreur;
-?>
+						<div align="center">
+			         <h2>Inscription</h2>
+			         <br /><br />
+			         <form method="POST" action="">
+			            <table>
+			               <tr>
+			                  <td align="right">
+			                     <label for="pseudo">Pseudo :</label>
+			                  </td>
+			                  <td>
+			                     <input type="text" placeholder="Votre pseudo" id="pseudo" name="pseudo" value="<?php if(isset($pseudo)) { echo $pseudo; } ?>" />
+			                  </td>
+			               </tr>
+			               <tr>
+			                  <td align="right">
+			                     <label for="mail">Mail :</label>
+			                  </td>
+			                  <td>
+			                     <input type="email" placeholder="Votre mail" id="mail" name="mail" value="<?php if(isset($mail)) { echo $mail; } ?>" />
+			                  </td>
+			               </tr>
+			               <tr>
+			                  <td align="right">
+			                     <label for="mail2">Confirmation du mail :</label>
+			                  </td>
+			                  <td>
+			                     <input type="email" placeholder="Confirmez votre mail" id="mail2" name="mail2" value="<?php if(isset($mail2)) { echo $mail2; } ?>" />
+			                  </td>
+			               </tr>
+			               <tr>
+			                  <td align="right">
+			                     <label for="mdp">Mot de passe :</label>
+			                  </td>
+			                  <td>
+			                     <input type="password" placeholder="Votre mot de passe" id="mdp" name="mdp" />
+			                  </td>
+			               </tr>
+			               <tr>
+			                  <td align="right">
+			                     <label for="mdp2">Confirmation du mot de passe :</label>
+			                  </td>
+			                  <td>
+			                     <input type="password" placeholder="Confirmez votre mdp" id="mdp2" name="mdp2" />
+			                  </td>
+			               </tr>
+			               <tr>
+			                  <td></td>
+			                  <td align="center">
+			                     <br />
+			                     <input type="submit" name="forminscription" value="Je m'inscris" />
+			                  </td>
+			               </tr>
+			            </table>
+			         </form>
+			         <?php
+			         if(isset($erreur)) {
+			            echo '<font color="red">'.$erreur."</font>";
+			         }
+			         ?>
+			      </div>
         </div>
       </div>
     </section>

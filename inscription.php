@@ -1,8 +1,5 @@
 <?php
 
-
-
-$base="table_membre.sql";
 // on teste si le visiteur a soumis le formulaire
 if (isset($_POST['inscription']) && $_POST['inscription'] == 'Inscription') {
 	// on teste l'existence de nos variables. On teste également si elles ne sont pas vides
@@ -12,8 +9,7 @@ if (isset($_POST['inscription']) && $_POST['inscription'] == 'Inscription') {
 		$erreur = 'Les 2 mots de passe sont différents.';
 	}
 	else {
-		$base = mysqli_connect ('serveur', 'login', 'password');
-		mysqli_select_db ('nom_base', $base);
+		mysqli_connect ('localhost', 'root', '','membre');
 
 		// on recherche si ce login est déjà utilisé par un autre membre
 		$sql = 'SELECT count(*) FROM membre WHERE login="'.mysqli_escape_string($_POST['login']).'"';
@@ -84,7 +80,7 @@ if (isset($_POST['inscription']) && $_POST['inscription'] == 'Inscription') {
 		 <a href="autocar.html">AutoCar</a>
        </div>
             </li>
-			
+
 			<li class="nav-item active px-lg-4">
               <a class="nav-link text-uppercase text-expanded" href="membre.php">Membre
                 <span class="sr-only">(current)</span>

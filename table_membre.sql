@@ -3,4 +3,4 @@ CREATE TABLE membre (
 	login text NOT NULL,
 	pass_md5 text NOT NULL,
 	PRIMARY KEY  (id)
-) TYPE=MyISAM;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
