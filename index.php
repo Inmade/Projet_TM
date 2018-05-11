@@ -1,3 +1,45 @@
+<?php
+
+error_reporting(E_PARSE | E_ERROR);
+
+// on teste si le visiteur a soumis le formulaire de connexion
+if (isset($_POST['connexion']) && $_POST['connexion'] == 'Connexion') {
+	if ((isset($_POST['login']) && !empty($_POST['login'])) && (isset($_POST['pass']) && !empty($_POST['pass']))) {
+
+	$base = mysqli_connect ('serveur', 'login', 'password');
+	mysqli_select_db ('nom_base', $base);
+
+	// on teste si une entrée de la base contient ce couple login / pass
+	$sql = 'SELECT count(*) FROM membre WHERE login="'.mysqli_escape_string($_POST['login']).'" AND pass_md5="'.mysqli_escape_string(md5($_POST['pass'])).'"';
+	$req = mysqli_query($sql) or die('Erreur SQL !<br />'.$sql.'<br />'.mysqli_error());
+	$data = mysqli_fetch_array($req);
+
+	mysqli_free_result($req);
+	mysqli_close();
+
+	// si on obtient une réponse, alors l'utilisateur est un membre
+	if ($data[0] == 1) {
+		session_start();
+		$_SESSION['login'] = $_POST['login'];
+		header('Location: membre.php');
+		exit();
+	}
+	// si on ne trouve aucune réponse, le visiteur s'est trompé soit dans son login, soit dans son mot de passe
+	elseif ($data[0] == 0) {
+		$erreur = 'Compte non reconnu.';
+	}
+	// sinon, alors la, il y a un gros problème :)
+	else {
+		$erreur = 'Probème dans la base de données : plusieurs membres ont les mêmes identifiants de connexion.';
+	}
+	}
+	else {
+	$erreur = 'Au moins un des champs est vide.';
+	}
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -49,7 +91,6 @@
               </a>
             </li>
 
-
 			<li class="nav-item active px-lg-4">
               <a class="nav-link text-uppercase text-expanded" href="contact.php">Contact
                 <span class="sr-only">(current)</span>
@@ -64,71 +105,17 @@
       <div class="container">
         <div class="intro">
           <div class=" text-center bg-faded p-5 rounded">
-			<div class="form-group row">
-				<label for="nom" class="col-2 col-form-label">Nom</label>
-				<div class="col-10">
-					<input class="form-control" type="email" placeholder="SMISSI" id="nom">
-				</div>
-			</div>
-			<div class="form-group row">
-				<label for="prenom" class="col-2 col-form-label">Prenom</label>
-				<div class="col-10">
-					<input class="form-control" type="email" placeholder="MICHEL" id="prenom">
-				</div>
-			</div>
-		  	<div class="form-group row">
-				<label for="email"class=col-2 col-form-label">Email</label>
-				<div class="col-10">
-					<input class="form-control" type="email" placeholder="bootstrap@hotmail.com" id="email">
-				</div>
-			</div>
-			<div class="form-group row">
-				<label for="telephone" class="col-2 col-form-label">Telephone</label>
-				<div class="col-10">
-					<input class="form-control" type="tel" placeholder="0495162158" id="telephone">
-				</div>
-			</div>
-			<div class="form-group row">
-				<label for="lieu" class="col-2 col-form-label">Lieu de prise en charge:</label>
-				<div class="col-10">
-					<input class="form-control" type="text" placeholder="Milano" id="lieu">
-				</div>
-			</div>
-			<div class="form-group row">
-				<label for="lieuRemise" class="col-2 col-form-label">Lieu de remise du véhicule:</label>
-				<div class="col-10">
-					<input class="form-control" type="text" placeholder="Paris" id="lieuRemise">
-				</div>
-			</div>
-		<div class="form-group row">
-			<label for="dateDebut" class="col-2 col-form-label">Date de prise en charge:</label>
-			<div class="col-10">
-				<input class="form-control" type="datetime-local" placeholder="2018-08-19T13:45:00" id="dateDebut">
-			</div>
-		</div>
-		<div class="form-group row">
-			<label for="dateFin" class="col-2 col-form-label">Date de restitution:</label>
-			<div class="col-10">
-				<input class="form-control" type="datetime-local" placeholder="2018-08-24T18:15:00" id="dateFin">
-			</div>
-		</div>
-		<div class="form-group row">
-			<label for="dateFin" class="col-2 col-form-label">Modèle du camion:</label>
-			<div class="col-10">
-			<select class="custom-select">
-				<option value="Fiat">Fiat</option>
-				<option value="Mercedez">Mercedez</option>
-				<option value="Opel">Opel</option>
-			</select>
-			</div>
-		</div>
-		
-		<div class="checkbox">
-			<label>
-				<input type="checkbox"> Le conducteur a t-il entre 30 et 65 ans?
-			</label>					
-		</div>
-
+           
+              Connexion à l'espace membre :<br />
+<form action="index.php" method="post">
+Login : <input type="text" name="login" value="<?php if (isset($_POST['login'])) echo htmlentities(trim($_POST['login'])); ?>"><br />
+Mot de passe : <input type="password" name="pass" value="<?php if (isset($_POST['pass'])) echo htmlentities(trim($_POST['pass'])); ?>"><br />
+<input type="submit" name="connexion" value="Connexion">
+</form>
+<a href="inscription.php">Vous inscrire</a>
+<?php
+if (isset($erreur)) echo '<br /><br />',$erreur;
+?>
         </div>
       </div>
     </section>

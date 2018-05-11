@@ -1,3 +1,11 @@
+<?php
+session_start();
+if (!isset($_SESSION['login'])) {
+	header ('Location: index.php');
+	exit();
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -20,7 +28,7 @@
 
     <h1 class="site-heading text-center text-white d-none d-lg-block ">
       <span class="site-heading-upper text-primary mb-3 title">Benny's location</span>
-      <span class="site-heading-lower title">Location de transports</span>
+      <span class="site-heading-lower title">Location de voitures</span>
     </h1>
 
     <!-- Navigation -->
@@ -29,7 +37,7 @@
         <div class="collapse navbar-collapse" id="navbarResponsive">
           <ul class="nav navbar-nav mx-auto">
             <li class="nav-item active px-lg-4">
-              <a class="nav-link text-uppercase text-expanded" href="index.html">Home
+              <a class="nav-link text-uppercase text-expanded" href="index.php">Home
                 <span class="sr-only">(current)</span>
               </a>
             </li>
@@ -37,18 +45,21 @@
             <li class="dropdown">
           <a  class="nav-link text-uppercase text-expanded">Location</a>
        <div class="dropdown-content">
-         <a href="voiture.html">Voiture</a>
-         <a href="moto.html">Moto</a>
+         <a href="voiture.php">Voiture</a>
 		 <a href="camion.html">Camion</a>
-		 <a href="velo.html">Vélo</a>
-		 <a href="car.html">Car</a>
+		 <a href="autocar.html">Autocar</a>
        </div>
+            </li>
+			
+			<li class="nav-item active px-lg-4">
+              <a class="nav-link text-uppercase text-expanded" href="membre.php">Membre
+                <span class="sr-only">(current)</span>
+              </a>
             </li>
 
 
-
 			<li class="nav-item active px-lg-4">
-              <a class="nav-link text-uppercase text-expanded" href="contact.html">Contact
+              <a class="nav-link text-uppercase text-expanded" href="contact.php">Contact
                 <span class="sr-only">(current)</span>
               </a>
             </li>
@@ -64,60 +75,66 @@
 			<div class="form-group row">
 				<label for="nom" class="col-2 col-form-label">Nom</label>
 				<div class="col-10">
-					<input class="form-control" type="email" value="SMISSI" id="nom">
+					<input class="form-control" type="email" placeholder="SMISSI" id="nom">
 				</div>
 			</div>
 			<div class="form-group row">
 				<label for="prenom" class="col-2 col-form-label">Prenom</label>
 				<div class="col-10">
-					<input class="form-control" type="email" value="MICHEL" id="prenom">
+					<input class="form-control" type="email" placeholder="MICHEL" id="prenom">
 				</div>
 			</div>
 		  	<div class="form-group row">
 				<label for="email"class=col-2 col-form-label">Email</label>
 				<div class="col-10">
-					<input class="form-control" type="email" value="bootstrap@hotmail.com" id="email">
+					<input class="form-control" type="email" placeholder="bootstrap@hotmail.com" id="email">
 				</div>
 			</div>
 			<div class="form-group row">
 				<label for="telephone" class="col-2 col-form-label">Telephone</label>
 				<div class="col-10">
-					<input class="form-control" type="tel" value="0495162158" id="telephone">
+					<input class="form-control" type="tel" placeholder="0495162158" id="telephone">
 				</div>
 			</div>
 			<div class="form-group row">
 				<label for="lieu" class="col-2 col-form-label">Lieu de prise en charge:</label>
 				<div class="col-10">
-					<input class="form-control" type="text" value="Milano" id="lieu">
+					<input class="form-control" type="text" placeholder="Milano" id="lieu">
 				</div>
 			</div>
 			<div class="form-group row">
 				<label for="lieuRemise" class="col-2 col-form-label">Lieu de remise du véhicule:</label>
 				<div class="col-10">
-					<input class="form-control" type="text" value="Paris" id="lieuRemise">
+					<input class="form-control" type="text" placeholder="Paris" id="lieuRemise">
 				</div>
 			</div>
 		<div class="form-group row">
 			<label for="dateDebut" class="col-2 col-form-label">Date de prise en charge:</label>
 			<div class="col-10">
-				<input class="form-control" type="datetime-local" value="2018-08-19T13:45:00" id="dateDebut">
+				<input class="form-control" type="datetime-local" placeholder="2018-08-19T13:45:00" id="dateDebut">
 			</div>
 		</div>
 		<div class="form-group row">
 			<label for="dateFin" class="col-2 col-form-label">Date de restitution:</label>
 			<div class="col-10">
-				<input class="form-control" type="datetime-local" value="2018-08-24T18:15:00" id="dateFin">
+				<input class="form-control" type="datetime-local" placeholder="2018-08-24T18:15:00" id="dateFin">
 			</div>
 		</div>
 		<div class="form-group row">
-			<label for="dateFin" class="col-2 col-form-label">Modèle du car:</label>
+			<label for="dateFin" class="col-2 col-form-label">Modèle de la voiture:</label>
 			<div class="col-10">
 			<select class="custom-select">
-				<option value="Mercedes-Benz">Mercedes-Benz</option>
-				<option value="Ford">Ford</option>
-				<option value="Volvo">Volvo</option>
+				<option value="Fiat">Fiat</option>
+				<option value="Mercedez">Mercedez</option>
+				<option value="Opel">Opel</option>
 			</select>
 			</div>
+		</div>
+		
+		<div class="checkbox">
+			<label>
+				<input type="checkbox"> Le conducteur a t-il entre 30 et 65 ans?
+			</label>					
 		</div>
 
         </div>
