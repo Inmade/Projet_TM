@@ -19,8 +19,8 @@ if(isset($_POST['forminscription'])) {
                   if($mdp == $mdp2) {
                      $insertmbr = $bdd->prepare("INSERT INTO membres(pseudo, mail, motdepasse) VALUES(?, ?, ?)");
                      $insertmbr->execute(array($pseudo, $mail, $mdp));
-                    /* $_SESSION['comptecree'] */ $erreur= "Votre compte a bien été créé ! <a href=\"connexion.php\">Me connecter</a>";
-                    /* header('Location: index.php');*/
+                     $_SESSION['comptecree']= "Votre compte a bien été créé !";
+                     header('Location: accueil.php');
                   } else {
                      $erreur = "Vos mots de passes ne correspondent pas !";
                   }
@@ -67,41 +67,10 @@ if(isset($_POST['forminscription'])) {
       <span class="site-heading-lower title">Location de voitures</span>
     </h1>
 
-    <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-dark py-lg-4" id="mainNav">
-      <div class="container">
-        <div class="collapse navbar-collapse" id="navbarResponsive">
-          <ul class="nav navbar-nav mx-auto">
-            <li class="nav-item active px-lg-4">
-              <a class="nav-link text-uppercase text-expanded" href="index.php">Home
-                <span class="sr-only">(current)</span>
-              </a>
-            </li>
 
-            <li class="dropdown">
-          <a  class="nav-link text-uppercase text-expanded">Location</a>
-       <div class="dropdown-content">
-         <a href="voiture.php">Voiture</a>
-		 <a href="camion.html">Camion</a>
-		 <a href="autocar.html">Autocar</a>
-       </div>
-            </li>
-
-			<li class="nav-item active px-lg-4">
-              <a class="nav-link text-uppercase text-expanded" href="membre.php">Membre
-                <span class="sr-only">(current)</span>
-              </a>
-            </li>
-
-			<li class="nav-item active px-lg-4">
-              <a class="nav-link text-uppercase text-expanded" href="contact.php">Contact
-                <span class="sr-only">(current)</span>
-              </a>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </nav>
+    <?php
+        include('navbar.php');
+    ?>
 
     <section class="page-section clearfix">
       <div class="container">

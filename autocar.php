@@ -1,3 +1,10 @@
+<?php
+session_start();
+if (!isset($_SESSION['id'])) {
+	header ('Location: index.php');
+	exit();
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -23,42 +30,9 @@
       <span class="site-heading-lower title">Location de voitures</span>
     </h1>
 
-    <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-dark py-lg-4" id="mainNav">
-      <div class="container">
-        <div class="collapse navbar-collapse" id="navbarResponsive">
-          <ul class="nav navbar-nav mx-auto">
-            <li class="nav-item active px-lg-4">
-              <a class="nav-link text-uppercase text-expanded" href="index.php">Home
-                <span class="sr-only">(current)</span>
-              </a>
-            </li>
-
-            <li class="dropdown">
-          <a  class="nav-link text-uppercase text-expanded">Location</a>
-       <div class="dropdown-content">
-         <a href="voiture.php">Voiture</a>
-		 <a href="camion.html">Camion</a>
-		 <a href="autocar.html">Autocar</a>
-       </div>
-            </li>
-
-			<li class="nav-item active px-lg-4">
-              <a class="nav-link text-uppercase text-expanded" href="membre.php">Membre
-                <span class="sr-only">(current)</span>
-              </a>
-            </li>
-
-
-			<li class="nav-item active px-lg-4">
-              <a class="nav-link text-uppercase text-expanded" href="contact.php">Contact
-                <span class="sr-only">(current)</span>
-              </a>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </nav>
+    <?php
+        include('navbar.php');
+    ?>
 
     <section class="page-section clearfix">
       <div class="container">
@@ -113,7 +87,7 @@
 			</div>
 		</div>
 		<div class="form-group row">
-			<label for="dateFin" class="col-2 col-form-label">Modèle du camion:</label>
+			<label for="dateFin" class="col-2 col-form-label">Modèle du car:</label>
 			<div class="col-10">
 			<select class="custom-select">
 				<option value="Fiat">Fiat</option>
@@ -122,11 +96,11 @@
 			</select>
 			</div>
 		</div>
-		
+
 		<div class="checkbox">
 			<label>
 				<input type="checkbox"> Le conducteur a t-il entre 30 et 65 ans?
-			</label>					
+			</label>
 		</div>
 
         </div>

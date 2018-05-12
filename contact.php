@@ -1,3 +1,10 @@
+<?php
+session_start();
+if (!isset($_SESSION['id'])) {
+	header ('Location: index.php');
+	exit();
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -22,44 +29,9 @@
       <span class="site-heading-lower title">Location de voitures</span>
     </h1>
 
-    <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-dark py-lg-4" id="mainNav">
-      <div class="container">
-        <a class="navbar-brand text-uppercase text-expanded font-weight-bold d-lg-none" href="#">Start Bootstrap</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarResponsive">
-          <ul class="navbar-nav mx-auto">
-            <li class="nav-item active px-lg-4">
-              <a class="nav-link text-uppercase text-expanded" href="index.php">Home
-                <span class="sr-only">(current)</span>
-              </a>
-            </li>
-            <li class="dropdown">
-				<a class="nav-link text-uppercase text-expanded">Location</a>
-				<div class="dropdown-content">
-					<a href="voiture.">Voiture</a>
-					<a href="camion.html">Camion</a>
-					<a href="autocar.html">Autocar</a>
-				</div>
-            </li>
-			
-			<li class="nav-item active px-lg-4">
-              <a class="nav-link text-uppercase text-expanded" href="membre.php">Membre
-                <span class="sr-only">(current)</span>
-              </a>
-            </li>
-			
-			<li class="nav-item active px-lg-4">
-              <a class="nav-link text-uppercase text-expanded">Contact
-                <span class="sr-only">(current)</span>
-              </a>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </nav>
+    <?php
+        include('navbar.php');
+    ?>
 
     <section class="page-section clearfix">
       <div class="container">
@@ -72,9 +44,9 @@
 		// S'il y des données de postées
 		if ($_SERVER['REQUEST_METHOD']=='POST') {
 		// Code PHP pour traiter l'envoi de l'email
-	  
+
 			$nombreErreur = 0; // Variable qui compte le nombre d'erreur
-	  
+
 			// Définit toutes les erreurs possibles
 			if (!isset($_POST['email'])) { // Si la variable "email" du formulaire n'existe pas (il y a un problème)
 				$nombreErreur++; // On incrémente la variable qui compte les erreurs
@@ -90,7 +62,7 @@
 				}
 				}
 			}
-	  
+
 			if (!isset($_POST['message'])) {
 				$nombreErreur++;
 				$erreur4 = '<p>Il y a un problème avec la variable "message".</p>';
@@ -100,7 +72,7 @@
 				$erreur5 = '<p>Vous avez oublié de donner un message.</p>';
 				}
 			}
-	  
+
 			if (!isset($_POST['captcha'])) {
 				$nombreErreur++;
 				$erreur6 = '<p>Il y a un problème avec la variable "captcha".</p>';
@@ -110,13 +82,13 @@
 				$erreur7 = '<p>Désolé, le captcha anti-spam est erroné.</p>';
 				}
 			}
-	  
+
 			if ($nombreErreur==0) { // S'il n'y a pas d'erreur
 				// Récupération des variables et sécurisation des données
 				$nom = htmlentities($_POST['nom']); // htmlentities() convertit des caractères "spéciaux" en équivalent HTML
 				$email = htmlentities($_POST['email']);
 				$message = htmlentities($_POST['message']);
-		
+
 				// Variables concernant l'email
 				$destinataire = 'luca20119@hotmail.com'; // Adresse email du webmaster
 				$sujet = 'ProjetTm'; // Titre de l'email
@@ -126,13 +98,13 @@
 				$contenu .= '<p><strong>Email</strong>: '.$email.'</p>';
 				$contenu .= '<p><strong>Message</strong>: '.$message.'</p>';
 				$contenu .= '</body></html>'; // Contenu du message de l'email
-		
+
 				// Pour envoyer un email HTML, l'en-tête Content-type doit être défini
 				$headers = 'MIME-Version: 1.0'."\r\n";
 				$headers .= 'Content-type: text/html; charset=iso-8859-1'."\r\n";
-		
+
 				@mail($destinataire, $sujet, $contenu, $headers); // Fonction principale qui envoi l'email
-		
+
 				echo '<h2>Message envoyé!</h2>'; // Afficher un message pour indiquer que le message a été envoyé
 			} else { // S'il y a un moins une erreur
 				echo '<div style="border:1px solid #ff0000; padding:5px;">';
