@@ -31,7 +31,7 @@ CREATE TABLE `vehicule` (
   `categorie` varchar(50) NOT NULL,
   `marque` varchar(50) NOT NULL,
   `modele` varchar(50) NOT NULL,
-  `nbPortes` int(1) NOT NULL,
+  `nbPortes` int(2) NOT NULL,
   `transmission` varchar(50) NOT NULL,
   `climatisation` tinyint(1) NOT NULL,
   `disponibilite` tinyint(1) NOT NULL
@@ -41,17 +41,17 @@ CREATE TABLE `vehicule` (
 -- Contenu de la table `bateau`
 --
 
-INSERT INTO `vehicule` (`idvehicule`, `catégorie`,`marque`, `modele`, `nbPortes`, `transmission`, `climatisation`, `disponibilite`) VALUES
-(1,'voiture' 'fiat', '500', 3, "manuelle", 1, 1),
-(2,'voiture' 'fiat', 'punto', 5, "automatique", 0, 1),
-(3,'voiture' 'mercedes-benz', 'classe c', 5, "automatique", 0, 1),
-(4,'voiture' 'audi', 'A4', 5, "automatique", 1, 1),
-(5,'camion' 'mercedes-benz', 'Atego', 5, "manuelle", 1, 0),
-(6,'camion' 'renauld', 'xload', 3, "automatique", 0, 1),
-(7,'camion' 'man', 'tgx', 5, "manuelle", 0, 1),
-(8,'autocar' 'fiat', '308', 2, "manuelle", 1, 1),
-(9,'autocar' 'iveco', '370', 2, "automatique", 0, 1),
-(10,'autocar' 'renauld', 'tracer', 4, "manuelle", 1, 0),
+INSERT INTO `vehicule` (`idvehicule`, `categorie`,`marque`, `modele`, `nbPortes`, `transmission`, `climatisation`, `disponibilite`) VALUES
+(1,'voiture', 'fiat', '500', 3, "manuelle", 1, 1),
+(2,'voiture', 'fiat', 'punto', 5, "automatique", 1, 1),
+(3,'voiture', 'mercedes-benz', 'classe c', 5, "automatique", 1, 1),
+(4,'voiture', 'audi', 'A4', 5, "automatique", 1, 1),
+(5,'camion', 'mercedes-benz', 'Atego', 5, "manuelle", 1, 1),
+(6,'camion', 'renauld', 'xload', 3, "automatique", 1, 1),
+(7,'camion', 'man', 'tgx', 5, "manuelle", 1, 1),
+(8,'autocar', 'fiat', '308', 2, "manuelle", 1, 1),
+(9,'autocar' ,'iveco', '370', 2, "automatique", 1, 1),
+(10,'autocar', 'renauld', 'tracer', 4, "manuelle", 1, 1);
 
 
 --

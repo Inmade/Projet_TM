@@ -1,3 +1,4 @@
+
 <!-- Navigation -->
 <nav class="navbar navbar-expand-lg navbar-dark py-lg-4" id="mainNav">
   <div class="container">
@@ -9,13 +10,13 @@
           </a>
         </li>
 
+
         <li class="dropdown">
-      <a  class="nav-link text-uppercase text-expanded">Location</a>
-   <div class="dropdown-content">
-     <a href="voiture.php">Voiture</a>
- <a href="camion.php">Camion</a>
- <a href="autocar.php">Autocar</a>
-   </div>
+        <a  class="nav-link text-uppercase text-expanded" href="vehicule.php">Nos véhicules</a>
+        </li>
+
+        <li class="dropdown">
+        <a  class="nav-link text-uppercase text-expanded" href="location.php">Location</a>
         </li>
 
   <li class="dropdown">

@@ -30,9 +30,9 @@ if (!isset($_SESSION['id'])) {
       <span class="site-heading-lower title">Location de voitures</span>
     </h1>
 
-    <?php
-        include('navbar.php');
-    ?>
+		<?php
+				include('navbar.php');
+		?>
 
     <section class="page-section clearfix">
       <div class="container">
@@ -87,7 +87,7 @@ if (!isset($_SESSION['id'])) {
 			</div>
 		</div>
 		<div class="form-group row">
-			<label for="dateFin" class="col-2 col-form-label">Modèle du car:</label>
+			<label for="dateFin" class="col-2 col-form-label">Modèle du vehicule:</label>
 			<div class="col-10">
 			<select class="custom-select">
 				<option value="Fiat">Fiat</option>
