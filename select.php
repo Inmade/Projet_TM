@@ -10,7 +10,7 @@ while($r = $reponse->fetch(PDO::FETCH_ASSOC)){
     "modele" => $r['modele'],
     "nb" => $r['nbPortes'],
     "trans" => $r['transmission'],
-    "clim" => $r['climatisation']);
+    "clim" => $r['climatisation'],
     "dispo" => $r['disponibilite']);
 }
 echo json_encode($donnees);

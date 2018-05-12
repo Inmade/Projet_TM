@@ -54,7 +54,7 @@
                         }
              					});
              				});
-             		</script>
+            	</script>
          </div>
        </div>
      </section>
